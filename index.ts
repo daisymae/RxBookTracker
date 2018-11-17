@@ -43,16 +43,31 @@ import { allBooks, allReaders } from './data';
 
 
 // 'of' returns an observable from data you already have
-let source1$ = of('hello', 10, true, allReaders[0].name);
+// let source1$ = of('hello', 10, true, allReaders[0].name);
 
-// source1$.subscribe(value => console.log(value));
+// // source1$.subscribe(value => console.log(value));
 
-let source2$ = from(allBooks);
+// let source2$ = from(allBooks);
 
-// source2$.subscribe(book => console.log(book.title));
+// // source2$.subscribe(book => console.log(book.title));
 
-// how to combine 2 observables into 1; want combined into a single 
-// will produce a single output that will have all the values of 
-// the first followed by all the values of the second
-concat(source1$, source2$)
-  .subscribe(value => console.log(value));
+// // how to combine 2 observables into 1; want combined into a single 
+// // will produce a single output that will have all the values of 
+// // the first followed by all the values of the second
+// concat(source1$, source2$)
+//   .subscribe(value => console.log(value));
+
+
+let button = document.getElementById('readersButton');
+
+fromEvent(button, 'click')
+  .subscribe(event => {
+    console.log(event);
+
+    let readersDiv = document.getElementById('readers');
+
+    for(let reader of allReaders) {
+      readersDiv.innerHTML += reader.name + '<br>';
+    }
+    
+  });
