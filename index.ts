@@ -59,16 +59,33 @@ import { allBooks, allReaders } from './data';
 //   .subscribe(value => console.log(value));
 
 
+// let button = document.getElementById('readersButton');
+
+// fromEvent(button, 'click')
+//   .subscribe(event => {
+//     console.log(event);
+
+//     let readersDiv = document.getElementById('readers');
+
+//     for(let reader of allReaders) {
+//       readersDiv.innerHTML += reader.name + '<br>';
+//     }
+
+//   });
+
 let button = document.getElementById('readersButton');
 
+// use ajax call to server instead of using the static data file
 fromEvent(button, 'click')
   .subscribe(event => {
-    console.log(event);
+    ajax('api/readers')
+      .subscribe(ajaxResponse => {
+        console.log(ajaxResponse);
+        let readers = ajaxResponse.response;
+        let readersDiv = document.getElementById('readers');
 
-    let readersDiv = document.getElementById('readers');
-
-    for(let reader of allReaders) {
-      readersDiv.innerHTML += reader.name + '<br>';
-    }
-
+        for (let reader of readers) {
+          readersDiv.innerHTML += reader.name + '<br>';
+        }
+      })
   });
